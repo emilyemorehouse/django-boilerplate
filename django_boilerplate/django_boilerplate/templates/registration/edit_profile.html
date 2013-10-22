@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+
+{% block content %}
+
+<br>
+<div class="row">
+  <div class="col-sm-8 col-md-offset-2">
+    <div class="well well-sm">
+      <div class="row-fluid">
+        <div class="page-header">
+          <h1>Edit Your Profile</h1>
+        </div>
+
+
+        <form method="post" enctype="multipart/form-data" action="">
+          {% csrf_token %}
+          {{ form|bootstrap}}
+          <input type="submit" class="btn btn-primary" value="Edit">
+        </form>
+
+        </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

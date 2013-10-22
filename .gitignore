@@ -1,0 +1,19 @@
+# OS X
+.DS_Store
+._*
+.Trashes
+
+# Virtualenv
+env/
+
+# Django
+*.log
+*.pot
+*.pyc
+local_settings.py
+
+# Project Specific
+*.db
+*.db.bk
+*.bkup
+*.sqlite3

@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block content %}
+<br>
+<div class="row">
+  <div class="col-sm-8 col-md-offset-2">
+    <div class="well well-sm">
+      <div class="row-fluid">
+        <div class="page-header">
+          <h1>{{ object.userprofile.firstName }} {{ object.userprofile.lastName }}'s Profile</h1>
+        </div>
+
+            {% if object.username == user.username %}
+
+                <a href='{% url "edit_profile" %}'>
+                    <button type="button" class="btn btn-primary">Edit Your Profile</button>
+                </a>
+                <br>
+
+            {% endif %}
+
+            
+
+            <br>
+            <b>User Name:</b>
+            {{ user.username }}
+            <br>
+
+            {% if object.userprofile.avatar %}
+                <br>
+                <img src="{{ MEDIA_URL }}{{ object.userprofile.avatar }}" width="100" height="140" >
+                <br>
+                <br>
+            {% endif %}
+
+
+            <b>First Name:</b>
+            {{ user.firstName }}
+            {{ object.userprofile.firstName }}
+            <br>
+
+            {% if object.userprofile.middleName %}
+                <b>Middle Name:</b>
+                {{ object.userprofile.middleName }}
+                <br>
+            {% endif %}
+
+            <b>Last Name:</b>
+            {{ object.userprofile.lastName }}
+            <br>
+
+            <!-- {% if object.userprofile.bio %} -->
+            <div>
+            <b>Bio:</b>
+            {{ object.userprofile.bio }}
+            </div>
+            <!-- {% endif %} -->
+
+            {% if object.username == user.username %}
+
+            <b>Email:</b>
+            {{ user.email }}
+            <br>
+
+            <b>FSU Email:</b>
+            {{ object.userprofile.edu_email }}
+            <br>
+
+<!--             <b>Preferred Email:</b>
+            {{ object.userprofile.email }}
+            <br> -->
+
+            <b>City:</b>
+            {{ object.userprofile.city }}
+            <br>
+
+            <b>State:</b>
+            {{ object.userprofile.state }}
+            <br>
+
+            <b>Gender:</b>
+            {{ object.userprofile.gender }}
+            <br>
+
+            {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
