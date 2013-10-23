@@ -47,7 +47,11 @@ urlpatterns = patterns('',
 
     # Basic pages
     url(r'^$', TemplateView.as_view(template_name="home.html"), name='home'),
-    url(r'^about/$', TemplateView.as_view(template_name="about.html"), name='about'),
+
+    # Template example pages
+    url(r'^left/$', TemplateView.as_view(template_name="left-sidebar.html"), name='left'),
+    url(r'^right/$', TemplateView.as_view(template_name="right-sidebar.html"), name='right'),
+    url(r'^no/$', TemplateView.as_view(template_name="no-sidebar.html"), name='no'),
 
 
 )

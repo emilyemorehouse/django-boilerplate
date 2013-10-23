@@ -3,109 +3,79 @@
 {% load bootstrap %}
 
 
-<!DOCTYPE html>
+<!DOCTYPE HTML>
+
 <html>
-<head>
-    <title>{% block title %}Project Name{% endblock %}</title>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet" type="text/css" />
+        <!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+        <script src="{% get_static_prefix %}js/jquery.min.js"></script>
+        <script src="{% get_static_prefix %}js/jquery.dropotron.js"></script>
+        <script src="{% get_static_prefix %}js/skel.min.js"></script>
+        <script src="{% get_static_prefix %}js/skel-panels.min.js"></script>
+        <script src="{% get_static_prefix %}js/init.js"></script>
+        <noscript>
+            <link rel="stylesheet" href="{% get_static_prefix %}css/skel-noscript.css" />
+            <link rel="stylesheet" href="{% get_static_prefix %}css/style.css" />
+            <link rel="stylesheet" href="{% get_static_prefix %}css/style-desktop.css" />
+            <link rel="stylesheet" href="{% get_static_prefix %}css/style-noscript.css" />
+        </noscript>
+        <!--[if lte IE 8]><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
+    </head>
 
-    <!-- Meta -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <body>
+        <div id="header">
+            <!-- Nav -->
+            <nav id="nav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/left/">Left Sidebar</a></li>
+                    <li><a href="/right/">Right Sidebar</a></li>
+                    <li><a href="/no/">No Sidebar</a></li>
 
-    <!-- <link rel="shortcut icon" href="{% get_static_prefix %}img/thetown_logo.png" />  -->
+                    <li>
+                        <span>Dropdown</span>
+                        <ul>
+                            <li><a href="#">Lorem ipsum dolor</a></li>
+                            <li><a href="#">Magna phasellus</a></li>
+                            <li><a href="#">Etiam dolore nisl</a></li>
+                            <li>
+                                <span>And a submenu &hellip;</span>
+                                <ul>
+                                    <li><a href="#">Lorem ipsum dolor</a></li>
+                                    <li><a href="#">Phasellus consequat</a></li>
+                                    <li><a href="#">Magna phasellus</a></li>
+                                    <li><a href="#">Etiam dolore nisl</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Veroeros feugiat</a></li>
+                        </ul>
+                    </li>
 
-    <!-- Bootstrap -->
-    <link href="{% get_static_prefix %}css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link rel="stylesheet" href="{% get_static_prefix %}css/style_ta.css" type="text/css" />
-</head>
-
-<!-- Body -->
-<body>
-    <div class="navbar navbar-default" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Project Title</a>
+                    {% if user.is_authenticated %}                       
+                    <!-- <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'profile' slug=user.username %}">Profile</a></li>
+                            <li><a href="{% url 'logout' %}">Logout</a></li>
+                        </ul>
+                    </li> -->
+                    <li><a href="{% url 'profile' slug=user.username %}">My Account</a></li>
+                    <li><a href="{% url 'logout' %}">Sign Out</a></li>
+                    {% else %}
+                    <li><a href="{% url 'registration_register' %}">Sign up</a></li>
+                    <li><a href="{% url 'login' %}">Sign in</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
         </div>
 
+        {% block breadcrumbs %}{% endblock %}
+        {% block content %}{% endblock %}
 
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
-
-<!--
-                <form class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form> -->
-
-            <li><a href="/about/">About</a><li>
-
-            </ul>    
-            <ul class="nav navbar-nav navbar-right">
-
-                {% if user.is_authenticated %}                       
-                <li><a href="{% url 'profile' slug=user.username %}">My Account</a></li>
-                <li><a href="{% url 'logout' %}">Sign Out</a></li>
-                {% else %}
-                <li><a href="{% url 'registration_register' %}">Sign up</a></li>
-                <li><a href="{% url 'login' %}">Sign in</a></li>
-
-<!-- THIS IS FOR LATE WHEN I CAN GET A DROPDOWN WORKING-->
-<!--
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login <b class="caret"></b></a>
-                    <form class="dropdown-menu pull-right" method="post" role="form" style="padding:10px 20px; min-width:230px;" action="{% url 'django.contrib.auth.views.login' %}">
-                        <fieldset>
-                            {% csrf_token %}
-
-                            <div class="control-group{% if form.username.errors %} error{% endif %}">
-                                <label class="control-label" for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
-                                <div class="control-label" placeholder="{{ form.username.id_for_label }}">
-                                    <div class="input-prepend">
-                                        <span class="add-on"><i class="icon-user"></i></span>
-                                        {{ form.username }}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="control-group{% if form.password.errors %} error{% endif %}">
-                                <label class="control-label" for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
-                                <div class="controls">
-                                    <div class="input-prepend">
-                                        <span class="add-on"><i class="icon-lock"></i></span>
-                                        {{ form.password }}
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="control-group">
-                                <div class="controls">
-                                    <input class="btn btn-large btn-primary" type="submit" value="Log In" />
-                                </div>
-                            </div>
-                            <input type="hidden" name="next" value="{{ next }}" />
-                        </fieldset>
-
-                        <script type="text/javascript">document.getElementById("{{ form.username.id_for_label }}").focus();</script>
-                    </form>
-                </li> -->
-                {% endif %}
-            </ul>
-     
-        </div>
-    </div>
-    
-    {% block breadcrumbs %}{% endblock %}
-    {% block content %}{% endblock %}
-
-<script type="text/javascript"
-        src="{% get_static_prefix %}js/jquery.js"></script>
-<script type="text/javascript"
-        src="{% get_static_prefix %}js/bootstrap.min.js"></script>
-</body>
+    </body>
 </html>
